@@ -1,4 +1,4 @@
-* READ THOROUGHLY OR YOU CAN END UP IN CONFLICT (either personally - that means with ME, or with understanding how this works) * 
+* READ THOROUGHLY OR YOU CAN END UP IN CONFLICT (with understanding how this works) * 
 
 Codename: "Satan's Nuke", development code name: EBotNet. [Project is CLASSIFIED SOFTWARE until I quit]
 
