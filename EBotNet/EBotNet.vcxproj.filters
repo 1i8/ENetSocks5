@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Quelldateien\enet">
+      <UniqueIdentifier>{c8263c04-a443-484e-a71f-daa2eab87196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\enet">
+      <UniqueIdentifier>{5ce7a136-c185-42bf-8cad-fdb647828ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\growtopia">
+      <UniqueIdentifier>{2ff3d754-a9a6-4db6-8079-95d13151ea45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\growtopia">
+      <UniqueIdentifier>{04a2e7a5-ecb5-42ee-97b1-df5dee7b468f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\compress.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\host.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\list.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\packet.cc">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\peer.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\protocol.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\unix.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\win32.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="enet\callbacks.c">
+      <Filter>Quelldateien\enet</Filter>
+    </ClCompile>
+    <ClCompile Include="EBotNet.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="EBotList.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="growtopia\MessageHandler.cpp">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClCompile>
+    <ClCompile Include="SocksTunnel.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="growtopia\utils.cpp">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClCompile>
+    <ClCompile Include="growtopia\VariantList.cpp">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClCompile>
+    <ClCompile Include="growtopia\MessageSender.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="growtopia\TankProtocol.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\growmmfi\src\MD5.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EBotNet.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\time.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\types.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\unix.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\utility.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\win32.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\callbacks.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\enet.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\list.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="enet\include\enet\protocol.h">
+      <Filter>Headerdateien\enet</Filter>
+    </ClInclude>
+    <ClInclude Include="EBotList.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\MessageHandler.h">
+      <Filter>Headerdateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="SocksTunnel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\TankProtocol.h">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\utils.hpp">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\VariantList.h">
+      <Filter>Quelldateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\MessageSender.h">
+      <Filter>Headerdateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="httplib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MD5.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\CallbackManager.h">
+      <Filter>Headerdateien\growtopia</Filter>
+    </ClInclude>
+    <ClInclude Include="growtopia\VariantFuncs.h">
+      <Filter>Headerdateien\growtopia</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
