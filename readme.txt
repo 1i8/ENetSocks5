@@ -32,8 +32,6 @@ Made by DEERUX#7072 only - no other people are affiliated with this software.
 
 NOTE: You need OpenSSL library installed & linked!
 
-
 EDIT: now public on github :)
-
 
 NOTE 2: If you're just one of those people who want the socks5 implemented with ENet, all you need is SocksTunnel.cpp and the enet include/source files ;)
