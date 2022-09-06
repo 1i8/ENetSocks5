@@ -37,3 +37,5 @@ EDIT: now public on github :)
 NOTE 2: If you're just one of those people who solely want the socks5 ENet implementation, all you need is SocksTunnel.cpp and the enet include/source files ;)
 
 NOTE 3: This is a slightly improved version of the previously classified https://github.com/playingoDEERUX/EBotNet
+
+NOTE 4: This SOCKS5 implementation supports auth via username too!
