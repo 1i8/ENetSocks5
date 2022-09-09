@@ -1,4 +1,4 @@
-* READ THOROUGHLY OR YOU CAN END UP IN CONFLICT (either personally - that means with ME, or with understanding how this works) * 
+* READ THOROUGHLY OR YOU CAN END UP IN CONFLICT (with understanding how this works) * 
 
 Codename: "Satan's Nuke", development code name: EBotNet. [Project is CLASSIFIED SOFTWARE until I quit]
 
@@ -6,7 +6,7 @@ This project is not to be disclosed as it imposes severe destruction upon any ne
 
 Not much help is provided for the project, you need to have programming knowledge yourself to get this to running.
 
-Distributing the project to anyone is only allowed for me (DEERUX#7072), in case anyone in this group distributes it without my permission,
+Distributing the project to anyone is only allowed for me (github.com/playingoDEERUX), in case anyone in this group distributes it without my permission,
 full src will be open src'ed in order to avoid the offender from making too much of a money-gain.
 
 Using this source to harm our own products in any way will also result in publishing of the source.
@@ -31,3 +31,11 @@ You can check-out all modifications yourself.
 Made by DEERUX#7072 only - no other people are affiliated with this software.
 
 NOTE: You need OpenSSL library installed & linked!
+
+EDIT: now public on github :)
+
+NOTE 2: If you're just one of those people who solely want the socks5 ENet implementation, all you need is SocksTunnel.cpp and the enet include/source files ;)
+
+NOTE 3: This is a slightly improved version of the previously classified https://github.com/playingoDEERUX/EBotNet
+
+NOTE 4: This SOCKS5 implementation supports auth via username too!

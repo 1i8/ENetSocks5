@@ -31,6 +31,7 @@ void EBotClient::Service()
 
 		case ENET_EVENT_TYPE_RECEIVE:
 			OnReceived();
+			
 			enet_packet_destroy(m_event.packet);
 			break;
 
@@ -191,7 +192,7 @@ bool EBotClient::UseSocks5(const char* socksHost, enet_uint16 socksPort)
 
 		if (m_proxy->SocksLogin())
 		{
-			LogMsg("Authentication successful! Sending UDP associate to obtain UDP relay server...");
+			//LogMsg("Authentication successful! Sending UDP associate to obtain UDP relay server...");
 			struct in_addr addr;
 			*(int*)&addr = 0;
 
@@ -209,10 +210,6 @@ bool EBotClient::UseSocks5(const char* socksHost, enet_uint16 socksPort)
 				enet_host_udp_tunnel(m_client, &m_address);
 
 				return true;
-			}
-			else
-			{
-				LogMsg("OpenUDP failure...");
 			}
 		}
 		else
