@@ -153,7 +153,7 @@ bool SocksTunnel::Send(const socks5_auth& authMsg)
 		return false;
 
 	char resp[2];
-	if (Receive(resp, 2) == -1) // problem here
+	if (Receive(resp, 2) == -1)
 		return false;
 
 	return resp[0] == 0x1 && resp[1] == 0;
@@ -204,7 +204,7 @@ bool SocksTunnel::Request(const socks5_msg& in, socks5_msg& out)
 	if (!Send(&port, sizeof(enet_uint16)))
 		return false;
 	
-	if (Receive(&out, 4) == -1) // problem here
+	if (Receive(&out, 4) == -1)
 		return false;
 
 	switch (out.AddrType)

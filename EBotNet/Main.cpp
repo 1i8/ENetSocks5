@@ -56,7 +56,7 @@ void init()
 
 atomic<size_t> botIDCounter{ 9999 }; // Use this as port.
 
-static const string gthost = "84.21.191.238";
+static const string gthost = "growtopia1.com";
 
 std::string loadstr(const string& path)
 {
@@ -67,7 +67,7 @@ std::string loadstr(const string& path)
 
 void launch_bot(string gtip, enet_uint16 gtport, TankInfo tankOverride)
 {
-	EBotClient* pBot = new EBotClient(gtip.c_str(), gtport, C_PROTOREV /*, "your.proxy.host", ++botIDCounter*/); // Up to 32K threads
+	EBotClient* pBot = new EBotClient(gtip.c_str(), gtport, C_PROTOREV/*, "your.proxy.host", ++botIDCounter*/); // Up to 32K threads
 	// (32K of these are going to be UDP sockets and 32K of these TCP sockets, to keep the socks5 alive. Has custom ENet to support beyond 1024 and 
 	// extreme optimizations like less frequent pinging and very fast framework and custom ENet tweaks to hold this many bots.)
 	
@@ -103,7 +103,7 @@ void startup()
 {
 	srand(mix(clock(), time(NULL), getpid()));
 	string gtip = gthost, meta;
-	enet_uint16 gtport = 17198;
+	enet_uint16 gtport = 24000;
 
 	httplib::Client cli("https://www.growtopia1.com");
 	cli.enable_server_certificate_verification(false);
@@ -144,17 +144,18 @@ void startup()
 	LogMsg("Accounts loaded: " + to_string(accs.size()));
 
 	// DO *NOT* USE MORE THAN 5 BOTS IF YOU DONT HAVE BOUGHT SOCKS5 PROXY from SOAX.COM or PROXYRACK.COM OR ANY OTHER PROVIDER THAT SUPPORTS SOCKS5 UDP ASSOCATION!!
-	for (int i = 0; i < 5; i++)
+
+	for (int i = 0; i < 1; i++)
 	{
 		TankInfo tInfo;
-		tInfo.SetTankIDName(""); // This should create a new pass.
-		tInfo.SetTankIDPass("");
+		tInfo.SetTankIDName(utils::gen_random(8)); // This should create a new pass.
+		tInfo.SetTankIDPass(utils::gen_random(8));
 		tInfo.meta = meta;
 
-		thread t([=] 
-		{
-			launch_bot(gtip, gtport, tInfo);
-		});
+		thread t([=]
+			{
+				launch_bot(gtip, gtport, tInfo);
+			});
 
 		t.detach();
 	}

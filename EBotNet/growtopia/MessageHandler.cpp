@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 #include <mutex>
 #include <thread>
 #include "../EBotList.h"
@@ -69,7 +69,6 @@ void MessageHandler::InitCallbacks()
 	g_callbackManager->SetCallback("OnSuperMainStartAcceptLogonHrdxs47254722215a", [](CALLBACK_ARGS) 
 	{ 
 		auto pClient = ((EBotClient*)context);
-		auto ePeer = pClient->GetPeer();
 		auto pSender = pClient->GetSender<MessageSender>();
 
 		pSender->SendEnterGame();
@@ -135,7 +134,7 @@ void MessageHandler::ProcessPacket(EBotClient* pClient)
 		vector<enet_uint8> bytes;
 
 		// Get the latest meta:
-		pClient->httpTunnel.Receive(bytes);
+		/*pClient->httpTunnel.Receive(bytes);
 
 		det.meta = string(bytes.begin(), bytes.end());
 		size_t tk = det.meta.find("meta|");
@@ -147,14 +146,19 @@ void MessageHandler::ProcessPacket(EBotClient* pClient)
 				det.meta = det.meta.substr(tk + 5, tk2);
 
 			LogMsg("Meta: " + det.meta);
-		}
+		}*/
 
 		pSender->SendLogon();
+		enet_peer_disconnect_later(pClient->GetPeer(), 0);
 		pClient->m_data.bits |= EBOT_BIT_LOGON;
 		break;
 	}
 	case NET_MESSAGE_TYPE_TEXT:
 	{
+		pSender->SendLogon();
+		enet_peer_disconnect_later(pClient->GetPeer(), 0);
+		pClient->m_data.bits |= EBOT_BIT_LOGON;
+
 		auto text = utils::GetTextFromPacket((char*)ev.packet->data + 4, ev.packet->dataLength - 4);
 #ifdef _DEBUG
 		LogMsg("[TEXT]: " + string(text));
@@ -164,6 +168,9 @@ void MessageHandler::ProcessPacket(EBotClient* pClient)
 
 	case NET_MESSAGE_TYPE_GAME_MSG:
 	{
+
+
+
 		auto text = utils::GetTextFromPacket((char*)ev.packet->data + 4, ev.packet->dataLength - 4);
 #ifdef _DEBUG
 		LogMsg("[GAME_MSG]: " + string(text));
