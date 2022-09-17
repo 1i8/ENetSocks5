@@ -13,7 +13,7 @@ SocksTunnel::~SocksTunnel()
 	DestroySocket();
 }
 
-void SocksTunnel::Init()
+const bool SocksTunnel::Init()
 {
 	if (_sock != ENET_SOCKET_NULL)
 		DestroySocket();
@@ -23,10 +23,11 @@ void SocksTunnel::Init()
 	if (_sock == ENET_SOCKET_NULL)
 	{
 		printf("Error during socket initialization in SocksTunnel()!!!\n");
-		exit(1);
+		return false;
 	}
 
 	enet_socket_set_option(_sock, ENET_SOCKOPT_NODELAY, 1);
+	return true;
 }
 
 bool SocksTunnel::Disconnect()
@@ -62,9 +63,15 @@ int SocksTunnel::Receive(std::vector<enet_uint8>& bytes, int len)
 
 	while (len > 0)
 	{
-		int read = enet_socket_receive(_sock, NULL, &buffer, 1);
+		int read = _ssl ? ReadSSL(&buffer) : enet_socket_receive(_sock, NULL, &buffer, 1);
+
 		if (read < 0)
+		{
+#ifdef _DEBUG
+			LogMsg("Fatal error while trying to SocksTunnel::Receive!");
+#endif
 			return -1;
+		}
 
 		if (read == 0)
 		{
@@ -91,7 +98,7 @@ int SocksTunnel::Receive(void* data, int len)
 
 	while (len > 0)
 	{
-		int read = enet_socket_receive(_sock, NULL, &buffer, 1);
+		int read = _ssl ? ReadSSL(&buffer) : enet_socket_receive(_sock, NULL, &buffer, 1);
 
 		if (read < 0)
 			return -1;
@@ -120,7 +127,7 @@ bool SocksTunnel::Send(void* data, size_t dataLen)
 	int sent;
 	while (buffer.dataLength > 0)
 	{
-		sent = enet_socket_send(_sock, NULL, &buffer, 1); // keep sending until we hit the first 0, so that we know all data has been sent.
+		sent = _ssl ? WriteSSL(buffer.data, buffer.dataLength) : enet_socket_send(_sock, NULL, &buffer, 1); // keep sending until we hit the first 0, so that we know all data has been sent.
 
 		if (sent <= 0)
 			return false;
@@ -392,4 +399,68 @@ void SocksTunnel::DestroySocket()
 void SocksTunnel::Kill()
 {
 	delete this;
+}
+
+void SocksTunnel::KillSSL()
+{
+	if (_ssl)
+	{
+		SSL_free(_ssl);
+		_ssl = NULL;
+	}
+}
+
+const bool SocksTunnel::InitSSL()
+{
+	// Initialize SSL:
+	auto ctx = SSL_CTX_new(TLS_client_method());
+
+	if (!ctx)
+	{
+		LogMsg("Failed to initialize new SSL context!");
+		return false;
+	}
+
+	
+	_ssl = SSL_new(ctx);
+	if (!_ssl)
+	{
+		LogMsg("Failed to allocate new SSL!");
+		SSL_CTX_free(ctx);
+		return false;
+	}
+
+	SSL_set_fd(_ssl, _sock);
+
+	const int status = SSL_connect(_ssl);
+	if (status != 1)
+	{
+		SSL_get_error(_ssl, status);
+		LogMsg("SSL_connect failed with error code: " + to_string(status));
+		SSL_CTX_free(ctx);
+		KillSSL();
+		return false;
+	}
+
+	return true;
+}
+
+int SocksTunnel::WriteSSL(void* data, const size_t len)
+{
+	if (!_ssl)
+		return -1;
+
+	return SSL_write(_ssl, data, len);
+}
+
+void SocksTunnel::WriteSSL(const std::string& str)
+{
+	WriteSSL((void*)str.c_str(), str.length());
+}
+
+int SocksTunnel::ReadSSL(ENetBuffer* buf)
+{
+	int len = SSL_read(_ssl, buf->data, sizeof(packetData));
+
+	return len;
 }
