@@ -45,6 +45,9 @@ void EBotClient::Service()
 	}
 }
 
+#define USE_HTTP_TUNNEL
+//#define USE_HTTPS_FOR_TUNNEL // (enable this if you want the socks5 to get server_data.php via HTTPS too!)
+
 void EBotClient::Connect(bool reconnect)
 {
 	if (m_proxy)
@@ -53,25 +56,47 @@ void EBotClient::Connect(bool reconnect)
 		in_addr addr;
 		*(int*)&addr = GetHost()->relayAddress.host;
 
+#ifdef USE_HTTP_TUNNEL
 		if (reconnect)
-			httpTunnel.Init();
+		{
+			if (!httpTunnel.Init())
+				return;
+		}
 
 		if (httpTunnel.Connect(IPAddress(eAddr.host).GetAsString().c_str(), eAddr.port))
 		{
 			if (httpTunnel.SocksLogin())
 			{
-				if (httpTunnel.SocksConnect(addr, 80))
+				if (httpTunnel.SocksConnect(addr, 443))
 				{
-					httpTunnel.Send(
-						"POST /growtopia/server_data.php HTTP/1.0\r\n"
-						"Accept: */*\r\n"
-						"Host: growtopia1.com\r\n"
-						"Content-Type: application/x-www-form-urlencoded\r\n"
-						"Content-Length: 38\r\n\r\n"
-						"version=3%2E98&platform=0&protocol=164\r\n");
+#ifdef _DEBUG
+					LogMsg("Sending http tunnel...");
+#endif
+#ifdef USE_HTTPS_FOR_TUNNEL
+					if (httpTunnel.InitSSL())
+					{
+#endif
+						httpTunnel.Send(
+							"POST /growtopia/server_data.php HTTP/1.1\r\n"
+							"Accept: */*\r\n"
+							"Host: www.growtopia1.com\r\n"
+							"Connection: close\r\n"
+							"Content-Type: application/x-www-form-urlencoded\r\n"
+							"Content-Length: 36\r\n\r\n"
+							"User-Agent: UbiServices_SDK_2017.Final.21_ANDROID64_static\r\n"
+							"version=3.99&platform=4&protocol=173\r\n");
+
+#ifdef USE_HTTPS_FOR_TUNNEL
+					}
+					else
+					{
+						LogMsg("Could not initialize SSL for the tunnel!");
+					}
+#endif
 				}
 			}
 		}
+#endif
 	}
 
 	if (!(enet_host_connect(m_client, &m_address, 2, 0)))
