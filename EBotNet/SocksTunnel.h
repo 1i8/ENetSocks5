@@ -5,6 +5,8 @@
 #ifdef _WIN32
 #include <in6addr.h>
 #endif
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 
 struct IPAddress {
 	char ip[16] = { 0 };
@@ -89,7 +91,7 @@ class SocksTunnel // Basically Custom ENetHost just for universal (unix & win) T
 public:
 	SocksTunnel();
     ~SocksTunnel();
-	void Init();
+	const bool Init();
 	bool Disconnect();
 	bool Connect(const char*, enet_uint16);
 	int Receive(std::vector<enet_uint8>& bytes, int len = ENET_PROTOCOL_MAXIMUM_MTU);
@@ -110,10 +112,19 @@ public:
 	void DestroySocket();
     void Kill();
 
+	// Stuff for HTTPS:
+	void KillSSL();
+	const bool InitSSL();
+	int WriteSSL(void* data, const size_t len);
+	void WriteSSL(const std::string&);
+
 private:
 	enet_uint8 packetData[ENET_PROTOCOL_MAXIMUM_MTU];
 	ENetSocket _sock = ENET_SOCKET_NULL;
 	ENetAddress _addr;
     ENetAddress _openUdp;
 	ENetAddress _openTcp;
+
+	SSL* _ssl = NULL;
+	int ReadSSL(ENetBuffer* buf);
 };
